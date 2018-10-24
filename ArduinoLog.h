@@ -104,6 +104,15 @@ public:
     */
     void begin(int level, Print *output, bool showLevel = true);
 
+    /**
+     * Runtime logging level changes.
+     */
+    void setLogLevel(int level) {
+        if (level >=0 && level <= 6) {
+            _level = level;
+        }
+    }
+
 	/**
 	 * Sets a function to be called before each log command.
 	 */
