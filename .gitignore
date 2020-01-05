@@ -1,3 +1,4 @@
 .pio
 cmake*/
+.idea/
 CMakeListsPrivate.txt
