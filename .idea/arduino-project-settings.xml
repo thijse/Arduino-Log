@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Arduino Project Settings">
+    <option name="port" value="/dev/cu.usbserial-DN02TAMF" />
+  </component>
+</project>

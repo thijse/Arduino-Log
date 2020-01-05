@@ -259,7 +259,7 @@ private:
 
 	void print(const __FlashStringHelper *format, va_list args);
 
-	void printFormat(const char format, va_list *args);
+	void printFormat(const char format, va_list args);
 
 	template <class T> void printLevel(int level, T msg, ...)
 	{
