@@ -16,7 +16,7 @@ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 #define LOGGING_H
 #include <inttypes.h>
 #include <stdarg.h>
-#if defined(ARDUINO) && ARDUINO >= 100
+#if (defined(ARDUINO) && ARDUINO >= 100) || UNIT_TEST
 	#include "Arduino.h"
 #else
 	#include "WProgram.h"
