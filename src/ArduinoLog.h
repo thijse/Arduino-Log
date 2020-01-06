@@ -24,6 +24,8 @@ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 #ifndef PGM_P
 #define PGM_P  const char *
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#define PSTR(str) (str)
+#define F(string_literal) (reinterpret_cast<const __FlashStringHelper *>(PSTR(string_literal)))
 #endif
 typedef void (*printfunction)(Print*);
 
