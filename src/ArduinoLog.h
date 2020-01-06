@@ -21,6 +21,10 @@ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 #else
 	#include "WProgram.h"
 #endif
+#ifndef PGM_P
+#define PGM_P  const char *
+#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#endif
 typedef void (*printfunction)(Print*);
 
 //#include <stdint.h>
