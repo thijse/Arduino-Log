@@ -44,7 +44,7 @@ This package has been published to the Arduino & PlatformIO package managers, bu
     Log.begin   (LOG_LEVEL_VERBOSE, &Serial);
     
     // Start logging text and formatted values
-    Log.errorln (  "Log as Error   with binary values             : %b, %B"    , 23  , 345808);
+    Log.error   (  "Log as Error   with binary values             : %b, %B"CR  , 23  , 345808);
     Log.warning (F("Log as Warning with integer values from Flash : %d, %d"CR) , 34  , 799870);
 ```
 
@@ -113,7 +113,7 @@ where the format string can be used to format the log variables
 * %D,%F display as double value
 ```
 
- Newlines can be added using the CR keyword or by using the ...ln version of each of the log functions.
+Newlines can be added using the CR keyword.
 
 ### Storing messages in Flash memory
 
@@ -139,11 +139,11 @@ void logError() {
 
 ```c++
     Log.fatal     (F("Log as Fatal   with string value from Flash   : %s"CR    ) , "value"     );
-    Log.errorln   (  "Log as Error   with binary values             : %b, %B"    , 23  , 345808);
+    Log.error     (  "Log as Error   with binary values             : %b, %B"CR  , 23  , 345808);
     Log.warning   (F("Log as Warning with integer values from Flash : %d, %d"CR) , 34  , 799870);
     Log.notice    (  "Log as Notice  with hexadecimal values        : %x, %X"CR  , 21  , 348972);
     Log.trace     (  "Log as Trace   with Flash string              : %S"CR    ) , F("value")  );
-    Log.verboseln (F("Log as Verbose with bool value from Flash     : %t, %T"  ) , true, false );
+    Log.verbose   (F("Log as Verbose with bool value from Flash     : %t, %T"CR) , true, false );
 ```
 
 ### Disable library
