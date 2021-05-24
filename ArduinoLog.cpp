@@ -172,12 +172,12 @@ void Logging::printFormat(const char format, va_list *args) {
 	}
 	else if (format == 's')
 	{
-		register char *s = (char *)va_arg(*args, int);
+		register char *s = va_arg(*args, char *);
 		_logOutput->print(s);
 	}
 	else if (format == 'S')
 	{
-		register __FlashStringHelper *s = (__FlashStringHelper *)va_arg(*args, int);
+		register __FlashStringHelper *s = va_arg(*args, __FlashStringHelper *);
 		_logOutput->print(s);
 	}
 	else if (format == 'd' || format == 'i')
