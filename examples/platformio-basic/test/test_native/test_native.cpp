@@ -191,7 +191,7 @@ void test_char_string_values() {
   const char *charArray = "this is a string";
   Log.notice(F("Log as Info with string value   : %s" CR), charArray);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with string value   : this is a string\n";
+  expected_output << "I: Log as Info with string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -204,7 +204,7 @@ void test_flash_string_values() {
   Log.notice("Log as Info with Flash string value   : %S" CR, flashCharArray1);
   std::stringstream expected_output;
   expected_output
-      << "N: Log as Info with Flash string value   : this is a string\n";
+      << "I: Log as Info with Flash string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -213,7 +213,7 @@ void test_string_values() {
   String stringValue1 = "this is a string";
   Log.notice("Log as Info with string value   : %s" CR, stringValue1.c_str());
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with string value   : this is a string\n";
+  expected_output << "I: Log as Info with string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
