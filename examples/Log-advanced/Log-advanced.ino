@@ -58,18 +58,18 @@ void printTimestamp(Print* _logOutput) {
   const unsigned long SECS_PER_DAY        = 86400;
 
   // Total time
-  const unsigned long msecs               =  millis() ;
+  const unsigned long msecs               =  millis();
   const unsigned long secs                =  msecs / MSECS_PER_SEC;
 
   // Time in components
-  const unsigned long MiliSeconds         =  msecs % MSECS_PER_SEC;
+  const unsigned long MilliSeconds        =  msecs % MSECS_PER_SEC;
   const unsigned long Seconds             =  secs  % SECS_PER_MIN ;
   const unsigned long Minutes             = (secs  / SECS_PER_MIN) % SECS_PER_MIN;
   const unsigned long Hours               = (secs  % SECS_PER_DAY) / SECS_PER_HOUR;
 
   // Time as string
   char timestamp[20];
-  sprintf(timestamp, "%02d:%02d:%02d.%03d ", Hours, Minutes, Seconds, MiliSeconds);
+  sprintf(timestamp, "%02d:%02d:%02d.%03d ", Hours, Minutes, Seconds, MilliSeconds);
   _logOutput->print(timestamp);
 }
 
