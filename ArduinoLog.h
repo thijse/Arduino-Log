@@ -369,6 +369,7 @@ private:
 		{
 		    _logOutput->print(CR);
 		}
+        va_end(args);
 #endif
 	}
 
