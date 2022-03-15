@@ -328,7 +328,9 @@ private:
 
 	void print(const Printable& obj, va_list args)
 	{
+#ifndef DISABLE_LOGGING		
 		_logOutput->print(obj);
+#endif		
 	}
 
 	void printFormat(const char format, va_list *args);
