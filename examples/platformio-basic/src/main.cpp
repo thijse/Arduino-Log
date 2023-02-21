@@ -23,13 +23,15 @@ String stringValue1 = "this is a string";
 float floatValue;
 double doubleValue;
 
-void printTimestamp(Print *_logOutput) {
+void printMillis(Print *_logOutput, int unused_loglevel) {
   char c[12];
   int m = sprintf(c, "%10lu ", millis());
   _logOutput->print(c);
 }
 
-void printCarret(Print *_logOutput) { _logOutput->print('>'); }
+void printSuffix(Print *_logOutput, int unused_loglevel) {
+  _logOutput->print('>');
+}
 
 void setup() {
   // Set up serial port and wait until connected
@@ -110,8 +112,8 @@ void loop() {
   Log.verboseln(F("Log as Verbose with bool value   : %T"), boolValue2);
   Log.verbose(F("Log as Verbose with bool value   : %T" CR), boolValue2);
 
-  Log.setPrefix(printTimestamp); // set timestamp as prefix
-  Log.setSuffix(printCarret);    // set carret as suffix
+  Log.setPrefix(printMillis); // set timestamp as prefix
+  Log.setSuffix(printSuffix); // set carret as suffix
   Log.verboseln(F("Log with suffix & prefix"));
   Log.setPrefix(NULL); // set timestamp as prefix
   Log.setSuffix(NULL); // set carret as suffix

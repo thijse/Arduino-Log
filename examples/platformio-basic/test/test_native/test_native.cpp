@@ -131,7 +131,7 @@ void test_int_values() {
   Log.notice("Log as Info with integer values : %d, %d" CR, int_value1,
              int_value2);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with integer values : 173, 65536\n";
+  expected_output << "I: Log as Info with integer values : 173, 65536\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -144,8 +144,8 @@ void test_int_hex_values() {
   Log.notice("Log as Info with hex values     : %x, %X" CR, int_value2,
              int_value2);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with hex values     : 98, 0x0098\n"
-                  << "N: Log as Info with hex values     : fdf2, 0xfdf2\n";
+  expected_output << "I: Log as Info with hex values     : 98, 0x0098\n"
+                  << "I: Log as Info with hex values     : fdf2, 0xfdf2\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -156,7 +156,7 @@ void test_int_binary_values() {
   Log.notice(F("Log as Info with binary values  : %b, %B" CR), int_value1,
              int_value2);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with binary values  : 100010101010, "
+  expected_output << "I: Log as Info with binary values  : 100010101010, "
                      "0b100010110010110\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
@@ -167,7 +167,7 @@ void test_long_values() {
   Log.notice(F("Log as Info with long values    : %l, %l" CR), long_value1,
              long_value2);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with long values    : "
+  expected_output << "I: Log as Info with long values    : "
                      "34359738368, 274877906944\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
@@ -181,8 +181,8 @@ void test_bool_values() {
   Log.notice("Log as Info with bool values    : %t, %T" CR, false_value,
              false_value);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with bool values    : T, true\n";
-  expected_output << "N: Log as Info with bool values    : F, false\n";
+  expected_output << "I: Log as Info with bool values    : T, true\n";
+  expected_output << "I: Log as Info with bool values    : F, false\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -191,7 +191,7 @@ void test_char_string_values() {
   const char *charArray = "this is a string";
   Log.notice(F("Log as Info with string value   : %s" CR), charArray);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with string value   : this is a string\n";
+  expected_output << "I: Log as Info with string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -204,7 +204,7 @@ void test_flash_string_values() {
   Log.notice("Log as Info with Flash string value   : %S" CR, flashCharArray1);
   std::stringstream expected_output;
   expected_output
-      << "N: Log as Info with Flash string value   : this is a string\n";
+      << "I: Log as Info with Flash string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -213,7 +213,7 @@ void test_string_values() {
   String stringValue1 = "this is a string";
   Log.notice("Log as Info with string value   : %s" CR, stringValue1.c_str());
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with string value   : this is a string\n";
+  expected_output << "I: Log as Info with string value   : this is a string\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -223,8 +223,8 @@ void test_float_values() {
   Log.notice(F("Log as Info with float value   : %F" CR), float_value);
   Log.notice("Log as Info with float value   : %F" CR, float_value);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with float value   : 12.34\n"
-                  << "N: Log as Info with float value   : 12.34\n";
+  expected_output << "I: Log as Info with float value   : 12.34\n"
+                  << "I: Log as Info with float value   : 12.34\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -235,8 +235,8 @@ void test_double_values() {
   Log.notice(F("Log as Info with double value   : %D" CR), double_value);
   Log.notice("Log as Info with double value   : %D" CR, double_value);
   std::stringstream expected_output;
-  expected_output << "N: Log as Info with double value   : 1234.57\n"
-                  << "N: Log as Info with double value   : 1234.57\n";
+  expected_output << "I: Log as Info with double value   : 1234.57\n"
+                  << "I: Log as Info with double value   : 1234.57\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
@@ -253,7 +253,7 @@ void test_mixed_values() {
              false_value);
   std::stringstream expected_output;
   expected_output
-      << "N: Log as Debug with mixed values  : 15826, 31477, 274877906944, "
+      << "I: Log as Debug with mixed values  : 15826, 31477, 274877906944, "
          "68719476743, T, false\n";
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
@@ -286,18 +286,21 @@ void test_log_levels() {
   TEST_ASSERT_EQUAL_STRING_STREAM(expected_output, output_);
 }
 
-void printTimestamp(Print *_logOutput) {
+void printMillis(Print *_logOutput, int unused_loglevel) {
   char c[12];
   int m = sprintf(c, "%10lu ", millis());
   _logOutput->print(c);
 }
-void printCarret(Print *_logOutput) { _logOutput->print('>'); }
+
+void printSuffix(Print *_logOutput, int unused_loglevel) {
+  _logOutput->print('>');
+}
 
 void test_prefix_and_suffix() {
   reset_output();
   When(Method(ArduinoFake(), millis)).Return(1026);
-  Log.setPrefix(printTimestamp); // set timestamp as prefix
-  Log.setSuffix(printCarret);    // set carret as suffix
+  Log.setPrefix(printMillis); // set millis as prefix
+  Log.setSuffix(printSuffix); // set angle bracket as suffix
   Log.verboseln(F("Log with suffix & prefix"));
   Log.setPrefix(NULL); // clear prefix
   Log.setSuffix(NULL); // clear suffix

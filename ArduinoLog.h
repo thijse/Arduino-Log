@@ -16,7 +16,7 @@ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 #include <stdarg.h>
 
 // Non standard: Arduino.h also chosen if ARDUINO is not defined. To facilitate use in non-Arduino test environments
-#if ARDUINO < 100
+#if defined(ARDUINO) && ARDUINO < 100
 	#include "WProgram.h"
 #else
 	#include "Arduino.h"
@@ -245,7 +245,7 @@ public:
 
 	/**
 	 * Output a notice message. Output message contains
-	 * N: followed by original message
+	 * I: followed by original message
 	 * Notice messages are printed out at
 	 * loglevels >= LOG_LEVEL_NOTICE
 	 * 
@@ -279,7 +279,7 @@ public:
 
 	/**
 	 * Output a trace message. Output message contains
-	 * N: followed by original message
+	 * I: followed by original message
 	 * Trace messages are printed out at
 	 * loglevels >= LOG_LEVEL_TRACE
 	 * 
