@@ -172,12 +172,12 @@ void Logging::printFormat(const char format, va_list *args) {
 	}
 	else if (format == 's')
 	{
-		register char *s = va_arg(*args, char *);
+		char *s = va_arg(*args, char *);
 		_logOutput->print(s);
 	}
 	else if (format == 'S')
 	{
-		register __FlashStringHelper *s = va_arg(*args, __FlashStringHelper *);
+		__FlashStringHelper *s = va_arg(*args, __FlashStringHelper *);
 		_logOutput->print(s);
 	}
 	else if (format == 'd' || format == 'i')
@@ -196,7 +196,7 @@ void Logging::printFormat(const char format, va_list *args) {
 	{		
 		_logOutput->print("0x");
 		//_logOutput->print(va_arg(*args, int), HEX);
-	    register uint16_t h = (uint16_t) va_arg( *args, int );
+	    uint16_t h = (uint16_t) va_arg( *args, int );
         if (h<0xFFF) _logOutput->print('0');
         if (h<0xFF ) _logOutput->print('0');
         if (h<0xF  ) _logOutput->print('0');
@@ -204,7 +204,7 @@ void Logging::printFormat(const char format, va_list *args) {
 	}
 	else if (format == 'p')
 	{		
-		register Printable *obj = (Printable *) va_arg(*args, int);
+		Printable *obj = (Printable *) va_arg(*args, int);
 		_logOutput->print(*obj);
 	}
 	else if (format == 'b')
@@ -229,7 +229,7 @@ void Logging::printFormat(const char format, va_list *args) {
 		_logOutput->print((char) va_arg(*args, int));
 	}
 	else if( format == 'C' ) {
-		register char c = (char) va_arg( *args, int );
+		char c = (char) va_arg( *args, int );
 		if (c>=0x20 && c<0x7F) {
 			_logOutput->print(c);
 		} else {
