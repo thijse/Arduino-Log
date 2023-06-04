@@ -26,7 +26,7 @@ void setup() {
     
     Log.setPrefix(printPrefix); // set prefix similar to NLog
     Log.setSuffix(printSuffix); // set suffix 
-    Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+    Log.begin(ARDUINO_LOG_LOG_LEVEL_VERBOSE, &Serial);
     Log.setShowLevel(false);    // Do not show loglevel, we will do this in the prefix
 }
 

@@ -37,18 +37,18 @@ typedef void (*printfunction)(Print*, int);
 // ************************************************************************
 //#define DISABLE_LOGGING
 
-#define LOG_LEVEL_SILENT  0
-#define LOG_LEVEL_FATAL   1
-#define LOG_LEVEL_ERROR   2
-#define LOG_LEVEL_WARNING 3
-#define LOG_LEVEL_INFO    4
-#define LOG_LEVEL_NOTICE  4
-#define LOG_LEVEL_TRACE   5
-#define LOG_LEVEL_VERBOSE 6
+#define ARDUINO_LOG_LOG_LEVEL_SILENT  0
+#define ARDUINO_LOG_LOG_LEVEL_FATAL   1
+#define ARDUINO_LOG_LOG_LEVEL_ERROR   2
+#define ARDUINO_LOG_LOG_LEVEL_WARNING 3
+#define ARDUINO_LOG_LOG_LEVEL_INFO    4
+#define ARDUINO_LOG_LOG_LEVEL_NOTICE  4
+#define ARDUINO_LOG_LOG_LEVEL_TRACE   5
+#define ARDUINO_LOG_LOG_LEVEL_VERBOSE 6
 
-#define CR "\n"
-#define LF "\r"
-#define NL "\n\r"
+#define CR "\r"
+#define LF "\n"
+#define NL "\r\n"
 #define LOGGING_VERSION 1_0_4
 
 /**
@@ -78,14 +78,14 @@ typedef void (*printfunction)(Print*, int);
  * 
  * ---- Loglevels
  * 
- * 0 - LOG_LEVEL_SILENT     no output
- * 1 - LOG_LEVEL_FATAL      fatal errors
- * 2 - LOG_LEVEL_ERROR      all errors
- * 3 - LOG_LEVEL_WARNING    errors and warnings
- * 4 - LOG_LEVEL_INFO       errors, warnings and notices
- * 4 - LOG_LEVEL_NOTICE     Same as INFO, kept for backward compatibility
- * 5 - LOG_LEVEL_TRACE      errors, warnings, notices, traces
- * 6 - LOG_LEVEL_VERBOSE    all
+ * 0 - ARDUINO_LOG_LOG_LEVEL_SILENT     no output
+ * 1 - ARDUINO_LOG_LOG_LEVEL_FATAL      fatal errors
+ * 2 - ARDUINO_LOG_LOG_LEVEL_ERROR      all errors
+ * 3 - ARDUINO_LOG_LOG_LEVEL_WARNING    errors and warnings
+ * 4 - ARDUINO_LOG_LOG_LEVEL_INFO       errors, warnings and notices
+ * 4 - ARDUINO_LOG_LOG_LEVEL_NOTICE     Same as INFO, kept for backward compatibility
+ * 5 - ARDUINO_LOG_LOG_LEVEL_TRACE      errors, warnings, notices, traces
+ * 6 - ARDUINO_LOG_LOG_LEVEL_VERBOSE    all
  */
 
 class Logging
@@ -96,7 +96,7 @@ public:
 	 */
 	Logging()
 #ifndef DISABLE_LOGGING
-		: _level(LOG_LEVEL_SILENT),
+		: _level(ARDUINO_LOG_LOG_LEVEL_SILENT),
    		  _showLevel(true),
 		  _logOutput(NULL)
 #endif
@@ -182,7 +182,7 @@ public:
 	 * Output a fatal error message. Output message contains
 	 * F: followed by original message
 	 * Fatal error messages are printed out at
-	 * loglevels >= LOG_LEVEL_FATAL
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_FATAL
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -190,13 +190,13 @@ public:
 	 */
   template <class T, typename... Args> void fatal(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_FATAL, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_FATAL, false, msg, args...);
 #endif
   }
 
   template <class T, typename... Args> void fatalln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_FATAL, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_FATAL, true, msg, args...);
 #endif
   }
 
@@ -204,7 +204,7 @@ public:
 	 * Output an error message. Output message contains
 	 * E: followed by original message
 	 * Error messages are printed out at
-	 * loglevels >= LOG_LEVEL_ERROR
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_ERROR
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -212,20 +212,20 @@ public:
 	 */
   template <class T, typename... Args> void error(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_ERROR, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_ERROR, false, msg, args...);
 #endif
   }
   
    template <class T, typename... Args> void errorln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_ERROR, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_ERROR, true, msg, args...);
 #endif
   } 
 	/**
 	 * Output a warning message. Output message contains
 	 * W: followed by original message
 	 * Warning messages are printed out at
-	 * loglevels >= LOG_LEVEL_WARNING
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_WARNING
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -233,13 +233,13 @@ public:
 	 */
   template <class T, typename... Args> void warning(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_WARNING, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_WARNING, false, msg, args...);
 #endif
   }
   
    template <class T, typename... Args> void warningln(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_WARNING, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_WARNING, true, msg, args...);
 #endif
   } 
 
@@ -247,7 +247,7 @@ public:
 	 * Output a notice message. Output message contains
 	 * N: followed by original message
 	 * Notice messages are printed out at
-	 * loglevels >= LOG_LEVEL_NOTICE
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_NOTICE
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -255,25 +255,25 @@ public:
 	 */
   template <class T, typename... Args> void notice(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_NOTICE, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_NOTICE, false, msg, args...);
 #endif
   }
   
   template <class T, typename... Args> void noticeln(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_NOTICE, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_NOTICE, true, msg, args...);
 #endif
   }  
 
   template <class T, typename... Args> void info(T msg, Args...args) {
 #ifndef DISABLE_LOGGING
-	  printLevel(LOG_LEVEL_INFO, false, msg, args...);
+	  printLevel(ARDUINO_LOG_LOG_LEVEL_INFO, false, msg, args...);
 #endif
   }
 
   template <class T, typename... Args> void infoln(T msg, Args...args) {
 #ifndef DISABLE_LOGGING
-	  printLevel(LOG_LEVEL_INFO, true, msg, args...);
+	  printLevel(ARDUINO_LOG_LOG_LEVEL_INFO, true, msg, args...);
 #endif
   }
 
@@ -281,7 +281,7 @@ public:
 	 * Output a trace message. Output message contains
 	 * N: followed by original message
 	 * Trace messages are printed out at
-	 * loglevels >= LOG_LEVEL_TRACE
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_TRACE
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -289,13 +289,13 @@ public:
 	*/
   template <class T, typename... Args> void trace(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_TRACE, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_TRACE, false, msg, args...);
 #endif
   }
 
   template <class T, typename... Args> void traceln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_TRACE, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_TRACE, true, msg, args...);
 #endif
 	}
 
@@ -303,7 +303,7 @@ public:
 	 * Output a verbose message. Output message contains
 	 * V: followed by original message
 	 * Debug messages are printed out at
-	 * loglevels >= LOG_LEVEL_VERBOSE
+	 * loglevels >= ARDUINO_LOG_LOG_LEVEL_VERBOSE
 	 * 
 	 * \param msg format string to output
 	 * \param ... any number of variables
@@ -311,13 +311,13 @@ public:
 	 */
   template <class T, typename... Args> void verbose(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_VERBOSE, false, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_VERBOSE, false, msg, args...);
 #endif
   }
 
   template <class T, typename... Args> void verboseln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_VERBOSE, true, msg, args...);
+    printLevel(ARDUINO_LOG_LOG_LEVEL_VERBOSE, true, msg, args...);
 #endif
   }
 
@@ -342,9 +342,9 @@ private:
 		{
 			return;
 		}
-		if (level < LOG_LEVEL_SILENT) 
+		if (level < ARDUINO_LOG_LOG_LEVEL_SILENT) 
 		{
-			level = LOG_LEVEL_SILENT;
+			level = ARDUINO_LOG_LOG_LEVEL_SILENT;
 		}
 			
 

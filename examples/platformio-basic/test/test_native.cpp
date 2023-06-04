@@ -121,7 +121,7 @@ void set_up_logging_captures() {
 
 void setUp(void) {
   ArduinoFakeReset();
-  Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+  Log.begin(ARDUINO_LOG_LOG_LEVEL_VERBOSE, &Serial);
   set_up_logging_captures();
 }
 void test_int_values() {
