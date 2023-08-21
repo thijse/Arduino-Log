@@ -262,5 +262,8 @@ void Logging::printFormat(const char format, va_list *args) {
 	}
 #endif
 }
- 
+
+#ifndef __DO_NOT_INSTANTIATE__
 Logging Log = Logging();
+#endif
+
