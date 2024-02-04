@@ -14,6 +14,7 @@ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 #pragma once
 #include <inttypes.h>
 #include <stdarg.h>
+#include <mutex>
 
 // Non standard: Arduino.h also chosen if ARDUINO is not defined. To facilitate use in non-Arduino test environments
 #if ARDUINO < 100
@@ -346,30 +347,33 @@ private:
 		{
 			level = LOG_LEVEL_SILENT;
 		}
-			
+		
+		if(xSemaphoreTake(_semaphore, (TickType_t) 10 )) {
 
-		if (_prefix != NULL)
-		{
-			_prefix(_logOutput, level);
-		}
+			if (_prefix != NULL)
+			{
+				_prefix(_logOutput, level);
+			}
 
-		if (_showLevel) {
-			static const char levels[] = "FEWITV";
-			_logOutput->print(levels[level - 1]);
-			_logOutput->print(": ");
-		}
+			if (_showLevel) {
+				static const char levels[] = "FEWITV";
+				_logOutput->print(levels[level - 1]);
+				_logOutput->print(": ");
+			}
 
-		va_list args;
-		va_start(args, msg);
-		print(msg, args);
+			va_list args;
+			va_start(args, msg);
+			print(msg, args);
 
-		if(_suffix != NULL)
-		{
-			_suffix(_logOutput, level);
-		}
-		if (cr)
-		{
-		    _logOutput->print(CR);
+			if(_suffix != NULL)
+			{
+				_suffix(_logOutput, level);
+			}
+			if (cr)
+			{
+			    _logOutput->print(CR);
+			}
+			xSemaphoreGive(_semaphore);
 		}
 #endif
 	}
@@ -378,6 +382,7 @@ private:
 	int _level;
 	bool _showLevel;
 	Print* _logOutput;
+	SemaphoreHandle_t _semaphore;
 
 	printfunction _prefix = NULL;
 	printfunction _suffix = NULL;

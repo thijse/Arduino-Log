@@ -37,6 +37,8 @@ void Logging::begin(int level, Print* logOutput, bool showLevel)
 	setLevel(level);
 	setShowLevel(showLevel);
 	_logOutput = logOutput;
+	_semaphore = xSemaphoreCreateMutex();
+	xSemaphoreGive(_semaphore);
 #endif
 }
 
