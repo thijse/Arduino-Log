@@ -362,6 +362,7 @@ private:
 		va_list args;
 		va_start(args, msg);
 		print(msg, args);
+		va_end(args);
 
 		if(_suffix != NULL)
 		{
