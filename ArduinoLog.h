@@ -46,6 +46,14 @@ typedef void (*printfunction)(Print*, int);
 #define LOG_LEVEL_TRACE   5
 #define LOG_LEVEL_VERBOSE 6
 
+#define BOLDRED F("\033[1;31m")
+#define BOLDWHITE F("\033[1;37m")
+#define RED "\033[;31m"
+#define YELLOW "\033[;33m"
+#define GREEN "\033[;32m"
+#define WHITE "\033[;37m"
+#define ENDCOLOUR "\033[0m"
+#define BLACK "\033[;30m"
 #define CR "\n"
 #define LF "\r"
 #define NL "\n\r"
@@ -190,13 +198,17 @@ public:
 	 */
   template <class T, typename... Args> void fatal(T msg, Args... args){
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_FATAL, false, BOLDRED, args...);
     printLevel(LOG_LEVEL_FATAL, false, msg, args...);
+		printLevel(LOG_LEVEL_FATAL, false, ENDCOLOUR, args...);
 #endif
   }
 
   template <class T, typename... Args> void fatalln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_FATAL, true, msg, args...);
+		printLevel(LOG_LEVEL_FATAL, false, BOLDRED, args...);
+    printLevel(LOG_LEVEL_FATAL, false, msg, args...);
+		printLevel(LOG_LEVEL_FATAL, true, ENDCOLOUR, args...);
 #endif
   }
 
@@ -212,13 +224,17 @@ public:
 	 */
   template <class T, typename... Args> void error(T msg, Args... args){
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_ERROR, false, RED, args...);
     printLevel(LOG_LEVEL_ERROR, false, msg, args...);
+		printLevel(LOG_LEVEL_ERROR, false, ENDCOLOUR, args...);
 #endif
   }
   
    template <class T, typename... Args> void errorln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_ERROR, true, msg, args...);
+		printLevel(LOG_LEVEL_ERROR, false, RED, args...);
+    printLevel(LOG_LEVEL_ERROR, false, msg, args...);
+		printLevel(LOG_LEVEL_ERROR, true, ENDCOLOUR, args...);
 #endif
   } 
 	/**
@@ -233,13 +249,17 @@ public:
 	 */
   template <class T, typename... Args> void warning(T msg, Args...args){
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_WARNING, false, YELLOW, args...);
     printLevel(LOG_LEVEL_WARNING, false, msg, args...);
+		printLevel(LOG_LEVEL_WARNING, false, ENDCOLOUR, args...);
 #endif
   }
   
    template <class T, typename... Args> void warningln(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_WARNING, true, msg, args...);
+		printLevel(LOG_LEVEL_WARNING, false, YELLOW, args...);
+    printLevel(LOG_LEVEL_WARNING, false, msg, args...);
+		printLevel(LOG_LEVEL_WARNING, true, ENDCOLOUR, args...);
 #endif
   } 
 
@@ -255,25 +275,33 @@ public:
 	 */
   template <class T, typename... Args> void notice(T msg, Args...args){
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_NOTICE, false, GREEN, args...);
     printLevel(LOG_LEVEL_NOTICE, false, msg, args...);
+		printLevel(LOG_LEVEL_NOTICE, false, ENDCOLOUR, args...);
 #endif
   }
   
   template <class T, typename... Args> void noticeln(T msg, Args...args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_NOTICE, true, msg, args...);
+		printLevel(LOG_LEVEL_NOTICE, false, GREEN, args...);
+    printLevel(LOG_LEVEL_NOTICE, false, msg, args...);
+		printLevel(LOG_LEVEL_NOTICE, true, ENDCOLOUR, args...);
 #endif
   }  
 
   template <class T, typename... Args> void info(T msg, Args...args) {
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_INFO, false, BOLDWHITE, args...);
 	  printLevel(LOG_LEVEL_INFO, false, msg, args...);
+		rintLevel(LOG_LEVEL_INFO, false, ENDCOLOUR, args...);
 #endif
   }
 
   template <class T, typename... Args> void infoln(T msg, Args...args) {
 #ifndef DISABLE_LOGGING
-	  printLevel(LOG_LEVEL_INFO, true, msg, args...);
+		printLevel(LOG_LEVEL_INFO, false, BOLDWHITE, args...);
+	  printLevel(LOG_LEVEL_INFO, false, msg, args...);
+		rintLevel(LOG_LEVEL_INFO, true, ENDCOLOUR, args...);
 #endif
   }
 
@@ -311,13 +339,17 @@ public:
 	 */
   template <class T, typename... Args> void verbose(T msg, Args... args){
 #ifndef DISABLE_LOGGING
+		printLevel(LOG_LEVEL_VERBOSE, false, BLACK, args...);
     printLevel(LOG_LEVEL_VERBOSE, false, msg, args...);
+		printLevel(LOG_LEVEL_VERBOSE, false, ENDCOLOUR, args...);
 #endif
   }
 
   template <class T, typename... Args> void verboseln(T msg, Args... args){
 #ifndef DISABLE_LOGGING
-    printLevel(LOG_LEVEL_VERBOSE, true, msg, args...);
+		printLevel(LOG_LEVEL_VERBOSE, false, BLACK, args...);
+    printLevel(LOG_LEVEL_VERBOSE, false, msg, args...);
+		printLevel(LOG_LEVEL_VERBOSE, true, ENDCOLOUR, args...);
 #endif
   }
 
@@ -351,12 +383,6 @@ private:
 		if (_prefix != NULL)
 		{
 			_prefix(_logOutput, level);
-		}
-
-		if (_showLevel) {
-			static const char levels[] = "FEWITV";
-			_logOutput->print(levels[level - 1]);
-			_logOutput->print(": ");
 		}
 
 		va_list args;
