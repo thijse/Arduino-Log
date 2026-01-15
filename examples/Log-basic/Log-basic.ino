@@ -29,11 +29,11 @@ void setup() {
     randomSeed(analogRead(0));
     // Pass log level, whether to show log level, and print interface.
     // Available levels are:
-    // LOG_LEVEL_SILENT, LOG_LEVEL_FATAL, LOG_LEVEL_ERROR, LOG_LEVEL_WARNING, LOG_LEVEL_INFO, LOG_LEVEL_TRACE, LOG_LEVEL_VERBOSE
+    // ARDUINO_LOG_LOG_LEVEL_SILENT, ARDUINO_LOG_LOG_LEVEL_FATAL, ARDUINO_LOG_LOG_LEVEL_ERROR, ARDUINO_LOG_LOG_LEVEL_WARNING, ARDUINO_LOG_LOG_LEVEL_INFO, ARDUINO_LOG_LOG_LEVEL_TRACE, ARDUINO_LOG_LOG_LEVEL_VERBOSE
     // Note: if you want to fully remove all logging code, uncomment #define DISABLE_LOGGING in Logging.h
     //       this will significantly reduce your project size
 
-    Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+    Log.begin(ARDUINO_LOG_LOG_LEVEL_VERBOSE, &Serial);
 
 
     //Start logging

@@ -43,7 +43,7 @@ This package has been published to the Arduino & PlatformIO package managers, bu
     Serial.begin(9600);
     
     // Initialize with log level and log output. 
-    Log.begin   (LOG_LEVEL_VERBOSE, &Serial);
+    Log.begin   (ARDUINO_LOG_LOG_LEVEL_VERBOSE, &Serial);
     
     // Start logging text and formatted values
     Log.errorln (  "Log as Error   with binary values             : %b, %B"    , 23  , 345808);
@@ -68,19 +68,19 @@ begin(int level, Print* logOutput)
 The loglevels available are
 
 ```
-* 0 - LOG_LEVEL_SILENT     no output 
-* 1 - LOG_LEVEL_FATAL      fatal errors 
-* 2 - LOG_LEVEL_ERROR      all errors  
-* 3 - LOG_LEVEL_WARNING    errors, and warnings 
-* 4 - LOG_LEVEL_NOTICE     errors, warnings and notices 
-* 5 - LOG_LEVEL_TRACE      errors, warnings, notices & traces 
-* 6 - LOG_LEVEL_VERBOSE    all 
+* 0 - ARDUINO_LOG_LOG_LEVEL_SILENT     no output 
+* 1 - ARDUINO_LOG_LOG_LEVEL_FATAL      fatal errors 
+* 2 - ARDUINO_LOG_LOG_LEVEL_ERROR      all errors  
+* 3 - ARDUINO_LOG_LOG_LEVEL_WARNING    errors, and warnings 
+* 4 - ARDUINO_LOG_LOG_LEVEL_NOTICE     errors, warnings and notices 
+* 5 - ARDUINO_LOG_LOG_LEVEL_TRACE      errors, warnings, notices & traces 
+* 6 - ARDUINO_LOG_LOG_LEVEL_VERBOSE    all 
 ```
 
 example
 
 ```
-Log.begin(LOG_LEVEL_ERROR, &Serial, true);
+Log.begin(ARDUINO_LOG_LOG_LEVEL_ERROR, &Serial, true);
 ```
 
 if you want to fully remove all logging code, uncomment `#define DISABLE_LOGGING` in `ArduinoLog.h`, this may significantly reduce your sketch/library size.

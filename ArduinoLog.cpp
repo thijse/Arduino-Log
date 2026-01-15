@@ -43,7 +43,7 @@ void Logging::begin(int level, Print* logOutput, bool showLevel)
 void Logging::setLevel(int level)
 {
 #ifndef DISABLE_LOGGING
-	_level = constrain(level, LOG_LEVEL_SILENT, LOG_LEVEL_VERBOSE);
+	_level = constrain(level, ARDUINO_LOG_LOG_LEVEL_SILENT, ARDUINO_LOG_LOG_LEVEL_VERBOSE);
 #endif
 }
 
