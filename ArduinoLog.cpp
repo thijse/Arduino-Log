@@ -227,6 +227,20 @@ void Logging::printFormat(const char format, va_list *args) {
 	{
 		_logOutput->print(va_arg(*args, long), DEC);
 	}
+   else if (format == 'L')
+   {
+      _logOutput->print("0x");
+		//_logOutput->print(va_arg(*args, int), HEX);
+	   uint32_t h = (uint32_t) va_arg( *args, long );
+      if (h <= 0xF) _logOutput->print('0');
+      else if (h <= 0xFF); // Do nothing
+      else if (h <= 0xFFF) _logOutput->print('0');
+      else if (h <= 0xFFFF); // Do nothing
+      else if (h <= 0xFFFFF) _logOutput->print('0');
+      else if (h <= 0xFFFFFF); // Do nothing
+      else if (h <= 0xFFFFFFF) _logOutput->print('0');
+      _logOutput->print(h, HEX);
+   }
 	else if (format == 'u')
 	{
 		_logOutput->print(va_arg(*args, unsigned long), DEC);
