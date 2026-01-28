@@ -163,6 +163,13 @@ void Logging::print(const char *format, va_list args) {
 #endif
 }
 
+void Logging::print(const char c, va_list args) 
+{
+#ifndef DISABLE_LOGGING
+   _logOutput->print(c);
+#endif
+}
+
 void Logging::printFormat(const char format, va_list *args) {
 #ifndef DISABLE_LOGGING
 	if (format == '\0') return;
