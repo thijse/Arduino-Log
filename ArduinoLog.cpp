@@ -247,9 +247,6 @@ void Logging::printFormat(const char format, va_list *args) {
 	}
 	else if (format == 'c')
 	{
-		_logOutput->print((char) va_arg(*args, int));
-	}
-	else if( format == 'C' ) {
 		char c = (char) va_arg( *args, int );
 		if (c>=0x20 && c<0x7F) {
 			_logOutput->print(c);
@@ -258,7 +255,13 @@ void Logging::printFormat(const char format, va_list *args) {
 			if (c<0xF) _logOutput->print('0');
 			_logOutput->print(c, HEX);
 		}
-    }
+	}
+	else if( format == 'C' ) {
+      // _logOutput->print("0x");
+		char c = (char) va_arg( *args, int );
+      if (c <= 0xF) _logOutput->print('0');
+		_logOutput->print(c, HEX);
+   }
 	else if(format == 't')
 	{
 		if (va_arg(*args, int) == 1)
