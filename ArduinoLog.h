@@ -324,6 +324,8 @@ public:
 private:
 	void print(const char *format, va_list args);
 
+   void print(const char c, va_list args);
+
 	void print(const __FlashStringHelper *format, va_list args);
 
 	void print(const Printable& obj, va_list args)

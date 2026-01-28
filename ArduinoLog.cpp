@@ -163,6 +163,13 @@ void Logging::print(const char *format, va_list args) {
 #endif
 }
 
+void Logging::print(const char c, va_list args) 
+{
+#ifndef DISABLE_LOGGING
+   _logOutput->print(c);
+#endif
+}
+
 void Logging::printFormat(const char format, va_list *args) {
 #ifndef DISABLE_LOGGING
 	if (format == '\0') return;
@@ -196,11 +203,11 @@ void Logging::printFormat(const char format, va_list *args) {
 	{		
 		_logOutput->print("0x");
 		//_logOutput->print(va_arg(*args, int), HEX);
-	    uint16_t h = (uint16_t) va_arg( *args, int );
-        if (h<0xFFF) _logOutput->print('0');
-        if (h<0xFF ) _logOutput->print('0');
-        if (h<0xF  ) _logOutput->print('0');
-        _logOutput->print(h,HEX);
+	   uint16_t h = (uint16_t) va_arg( *args, int );
+      if (h <= 0xF) _logOutput->print('0');
+      else if (h <= 0xFF); // Do nothing
+      else if (h <= 0xFFF) _logOutput->print('0');
+      _logOutput->print(h,HEX);
 	}
 	else if (format == 'p')
 	{		
